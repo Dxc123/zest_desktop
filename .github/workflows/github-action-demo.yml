@@ -66,22 +66,22 @@ jobs:
       #   env:
       #      BUILD_TOOLS_VERSION: "34.0.0"
 
-      #安卓目录里面没有配置 key.properties文件以及 jks文件等配置时，使用下面👇🏻
-      - name: 创建 key.properties文件
-        run: |
-          echo "storePassword=${{secrets.KEY_STORE_PASSWORD}}" > key.properties
-          echo "keyPassword=${{secrets.KEY_PASSWORD}}" >> key.properties
-          echo "keyAlias=${{secrets.KEY_ALIAS}}" >> key.properties
-          echo "storeFile=testhani.jks" >> key.properties
-          ls -laq
-          cat key.properties
-        working-directory: android
+      # #安卓目录里面没有配置 key.properties文件以及 jks文件等配置时，使用下面👇🏻
+      # - name: 创建 key.properties文件
+      #   run: |
+      #     echo "storePassword=${{secrets.KEY_STORE_PASSWORD}}" > key.properties
+      #     echo "keyPassword=${{secrets.KEY_PASSWORD}}" >> key.properties
+      #     echo "keyAlias=${{secrets.KEY_ALIAS}}" >> key.properties
+      #     echo "storeFile=testhani.jks" >> key.properties
+      #     ls -laq
+      #     cat key.properties
+      #   working-directory: android
 
-      - name: 编码并创建jks文件
-        run: echo ${{ secrets.SIGNING_KEY}} | base64 --decode > android/testhani.jks
+      # - name: 编码并创建jks文件
+      #   run: echo ${{ secrets.SIGNING_KEY}} | base64 --decode > android/testhani.jks
 
-      - run: flutter pub get
-      - run: dart run build_runner build --delete-conflicting-outputs  
+      # - run: flutter pub get
+      # - run: dart run build_runner build --delete-conflicting-outputs  
 
       - name: Build APK
         # # 构建不同架构的 apk, armeabi-v7a arm64-v8a x86_64
