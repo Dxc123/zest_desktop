@@ -52,41 +52,41 @@ jobs:
         run: |
             echo "version: ${{ env.version }}"
             
-      ##安卓目录里面已经配置 key.properties文件以及 jks文件等配置时，使用下面👇🏻
-      # - name: 签名并打包apk
-      #   uses: r0adkll/sign-android-release@v1
-      #   # 用于访问动作输出的 ID
-      #   id: sign_app
-      #   with:
-      #     releaseDirectory: build/app/outputs/flutter-apk/
-      #     signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-      #     alias: ${{ secrets.KEY_ALIAS  }}
-      #     keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-      #     keyPassword: ${{ secrets.KEY_PASSWORD }}
-      #   env:
-      #      BUILD_TOOLS_VERSION: "34.0.0"
+      #安卓目录里面已经配置 key.properties文件以及 jks文件等配置时，使用下面👇🏻
+      - name: 签名并打包apk
+        uses: r0adkll/sign-android-release@v1
+        # 用于访问动作输出的 ID
+        id: sign_app
+        with:
+          releaseDirectory: build/app/outputs/flutter-apk/
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.KEY_ALIAS  }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+        env:
+           BUILD_TOOLS_VERSION: "34.0.0"
 
-      #安卓目录里面没有配置 key.properties文件以及 jks文件等配置时，使用下面👇🏻
-      - name: 创建 key.properties文件
-        run: |
-          echo "storePassword=${{secrets.KEY_STORE_PASSWORD}}" > key.properties
-          echo "keyPassword=${{secrets.KEY_PASSWORD}}" >> key.properties
-          echo "keyAlias=${{secrets.KEY_ALIAS}}" >> key.properties
-          echo "storeFile=testhani.jks" >> key.properties
-          ls -laq
-          cat key.properties
-        working-directory: android
+      # #安卓目录里面没有配置 key.properties文件以及 jks文件等配置时，使用下面👇🏻
+      # - name: 创建 key.properties文件
+      #   run: |
+      #     echo "storePassword=${{secrets.KEY_STORE_PASSWORD}}" > key.properties
+      #     echo "keyPassword=${{secrets.KEY_PASSWORD}}" >> key.properties
+      #     echo "keyAlias=${{secrets.KEY_ALIAS}}" >> key.properties
+      #     echo "storeFile=testhani.jks" >> key.properties
+      #     ls -laq
+      #     cat key.properties
+      #   working-directory: android
 
-      - name: 编码并创建jks文件
-        run: echo ${{ secrets.SIGNING_KEY}} | base64 --decode > android/testhani.jks
+      # - name: 编码并创建jks文件
+      #   run: echo ${{ secrets.SIGNING_KEY}} | base64 --decode > android/testhani.jks
 
-      - name: Build APK
-        #构建不同架构的 apk, armeabi-v7a arm64-v8a x86_64
-        run: flutter build apk --split-per-abi
-        # run: flutter build apk --obfuscate --split-debug-info=./symbols 
+      # - name: Build APK
+      #   # # 构建不同架构的 apk, armeabi-v7a arm64-v8a x86_64
+      #   # run: flutter build apk --split-per-abi
+      #   run: flutter build apk --obfuscate --split-debug-info=./symbols 
 
-      - name: Ls output directory
-        run: ls -laq build/app/outputs/flutter-apk/
+      # - name: Ls output directory
+      #   run: ls -laq build/app/outputs/flutter-apk/
 
       - name: Create Release
         id: create_release
