@@ -51,7 +51,22 @@ jobs:
       - name: 打印版本号
         run: |
             echo "version: ${{ env.version }}"
+            
+      ##安卓目录里面已经配置 key.properties文件以及 jks文件等配置时，使用下面👇🏻
+      # - name: 签名并打包apk
+      #   uses: r0adkll/sign-android-release@v1
+      #   # 用于访问动作输出的 ID
+      #   id: sign_app
+      #   with:
+      #     releaseDirectory: build/app/outputs/flutter-apk/
+      #     signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+      #     alias: ${{ secrets.KEY_ALIAS  }}
+      #     keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+      #     keyPassword: ${{ secrets.KEY_PASSWORD }}
+      #   env:
+      #      BUILD_TOOLS_VERSION: "34.0.0"
 
+      #安卓目录里面没有配置 key.properties文件以及 jks文件等配置时，使用下面👇🏻
       - name: 创建 key.properties文件
         run: |
           echo "storePassword=${{secrets.KEY_STORE_PASSWORD}}" > key.properties
@@ -65,21 +80,10 @@ jobs:
       - name: 编码并创建jks文件
         run: echo ${{ secrets.SIGNING_KEY}} | base64 --decode > android/testhani.jks
 
-      - name: 签名 apk
-        uses: r0adkll/sign-android-release@v1
-        # 用于访问动作输出的 ID
-        id: sign_app
-        with:
-          releaseDirectory: app/build/outputs/apk/release
-          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-          alias: ${{ secrets.KEY_ALIAS  }}
-          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEY_PASSWORD }}
-        env:
-           BUILD_TOOLS_VERSION: "34.0.0"
-
       - name: Build APK
-        run: flutter build apk --split-per-abi #构建不同架构的 apk, armeabi-v7a arm64-v8a x86_64
+        # #构建不同架构的 apk, armeabi-v7a arm64-v8a x86_64
+        # run: flutter build apk --split-per-abi 
+        run: flutter build apk --obfuscate --split-debug-info=./symbols 
 
       - name: Ls output directory
         run: ls -laq build/app/outputs/flutter-apk/
@@ -96,12 +100,12 @@ jobs:
           prerelease: ${{ contains(github.ref, '-alpha') || contains(github.ref, '-beta') }}
           body: ${{ github.event.head_commit.message }}
 
-      - name: Upload arm64-v8a Release Asset
+      - name: Upload apk Release Asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.AUTH_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
-          asset_name: app-arm64-v8a-release.apk
+          asset_path: ./build/app/outputs/flutter-apk/app-release.apk
+          asset_name: app-release.apk
           asset_content_type: application/vnd.android.package-archive
