@@ -81,9 +81,9 @@ jobs:
         run: echo ${{ secrets.SIGNING_KEY}} | base64 --decode > android/testhani.jks
 
       - name: Build APK
-        # #构建不同架构的 apk, armeabi-v7a arm64-v8a x86_64
-        # run: flutter build apk --split-per-abi 
-        run: flutter build apk --obfuscate --split-debug-info=./symbols 
+        #构建不同架构的 apk, armeabi-v7a arm64-v8a x86_64
+        run: flutter build apk --split-per-abi
+        # run: flutter build apk --obfuscate --split-debug-info=./symbols 
 
       - name: Ls output directory
         run: ls -laq build/app/outputs/flutter-apk/
