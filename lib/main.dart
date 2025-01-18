@@ -3,7 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:get/get.dart';
 
-import 'app/data/services/app_service.dart';
+import 'app/data/common/services/app_service.dart';
 import 'app/routes/app_pages.dart';
 import 'generated/locales.g.dart';
 import 'generated/l10n.dart';

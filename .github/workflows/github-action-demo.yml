@@ -24,7 +24,7 @@ on:
 # 一次持续集成的运行，可以完成多个任务(下面就build)
 jobs:
   builds:
-    # 构建的系统(ubuntu、windows、macos)
+    # 构建的系统(ubuntu(虚拟机)、windows、macos)
     runs-on: ubuntu-latest
 
     # 可以依赖其他job
