@@ -1,26 +1,73 @@
-name: Release
+name: Flutter 自动化打包
+#触发事件
 on:
   push:
-#    表示在有tag被push，且tag是以v开头时，运行这个action。
-    tags:
-      - "v*"
+    branches:
+      - master
+#   #表示在有tag被push，且tag是以v开头时，运行这个action。
+#   # git tag v1.0.0
+#   # git push --tags
+#    tags:
+#      - "v*"
+
+# 并发策略
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  # 如果有新的运行实例，取消正在进行的实例
+  cancel-in-progress: true
+
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-java@v3
+      - name: 拉取检测代码
+        uses: actions/checkout@v4
+
+      - name: 设置Java环境
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 11
-      - uses: gradle/gradle-build-action@v2
+          java-version: 17
+
+      - name: 配置安卓 Gradle
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: 设置flutter版本
+        uses: subosito/flutter-action@v2
         with:
-          gradle-version: current
-          arguments: assembleRelease
-      - uses: r0adkll/sign-android-release@v1
+          channel: stable
+          flutter-version: 3.22.0
+      - run: flutter --version
+      - run: flutter pub get
+      - run: dart run build_runner build
+
+      - name: 打印版本号
+        run: |
+            echo "version: ${{ env.version }}"
+
+      - name: 创建 key.properties文件
+        run: |
+          echo "storePassword=${{secrets.KEY_STORE_PASSWORD}}" > key.properties
+          echo "keyPassword=${{secrets.KEY_PASSWORD}}" >> key.properties
+          echo "keyAlias=${{secrets.KEY_ALIAS}}" >> key.properties
+          echo "storeFile=testhani.jks" >> key.properties
+          ls -laq
+          cat key.properties
+        working-directory: android
+
+      - name: 编码并创建jks文件
+        run: echo ${{ secrets.SIGNING_KEY}} | base64 --decode > android/testhani.jks
+
+      - name: 签名 apk
+        uses: r0adkll/sign-android-release@v1
+        # 用于访问动作输出的 ID
         id: sign_app
         with:
           releaseDirectory: app/build/outputs/apk/release
@@ -28,9 +75,33 @@ jobs:
           alias: ${{ secrets.KEY_ALIAS  }}
           keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
           keyPassword: ${{ secrets.KEY_PASSWORD }}
-      - run: mv ${{steps.sign_app.outputs.signedReleaseFile}} LittleGooseOffice_$GITHUB_REF_NAME.apk
-      - uses: ncipollo/release-action@v1
+        env:
+           BUILD_TOOLS_VERSION: "34.0.0"
+
+      - name: Build APK
+        run: flutter build apk --split-per-abi #构建不同架构的 apk, armeabi-v7a arm64-v8a x86_64
+
+      - name: Ls output directory
+        run: ls -laq build/app/outputs/flutter-apk/
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.AUTH_TOKEN }}
         with:
-          artifacts: "*.apk"
-          token: ${{ github.token }}
-          generateReleaseNotes: true
+          tag_name: ${{ github.ref_name }}
+          release_name: ${{ github.ref_name }}
+          draft: false
+          prerelease: ${{ contains(github.ref, '-alpha') || contains(github.ref, '-beta') }}
+          body: ${{ github.event.head_commit.message }}
+
+      - name: Upload arm64-v8a Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.AUTH_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
+          asset_name: app-arm64-v8a-release.apk
+          asset_content_type: application/vnd.android.package-archive

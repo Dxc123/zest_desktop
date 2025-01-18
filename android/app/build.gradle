@@ -76,8 +76,6 @@ android {
             ndk {
 ////            测试打包架构，缩小包大小
 //                abiFilters 'arm64-v8a'
-//                正式打包架构
-                //noinspection ChromeOsAbiSupport
                 abiFilters "armeabi-v7a",'arm64-v8a'
             }
 
