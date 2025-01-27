@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.4.0 <4.0.0'
+  sdk: '>=3.0.0 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -30,7 +30,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-# Flutter Intl插件国际化
+  # Flutter Intl插件国际化
   flutter_localizations:
     sdk: flutter
 
@@ -38,24 +38,29 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   get: ^4.6.6
+  dio: ^5.7.0
   json_annotation: ^4.9.0
   freezed_annotation: ^2.4.4
   logger: ^2.5.0
+  ansi_styles: ^0.3.2+1 #控制台输出颜色
+
   flutter_staggered_grid_view: ^0.7.0
-  shared_preferences: ^2.3.3
   flutter_easyloading: ^3.0.5
+  flutter_screenutil: ^5.9.3
+  easy_refresh: ^3.4.0
+
+  get_storage: ^2.1.1
+  shared_preferences: ^2.3.5
+  event_bus: ^2.0.1
+  permission_handler: ^11.3.1
+
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-  # The "flutter_lints" package below contains a set of recommended lints to
-  # encourage good coding practices. The lint set provided by the package is
-  # activated in the `analysis_options.yaml` file located at the root of your
-  # package. See that file for information about deactivating specific lint
-  # rules and activating additional ones.
   flutter_lints: ^4.0.0
-  build_runner: ^2.4.11
+  build_runner: ^2.4.13
   json_serializable: ^6.8.0
   freezed: ^2.5.2
 
@@ -63,6 +68,10 @@ dev_dependencies:
 # following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
 flutter:
+  fonts:
+    - family: IconUntil
+      fonts:
+        - asset: assets/icon_font/icon_until.ttf
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -101,12 +110,13 @@ flutter:
     - assets/locales/
     - assets/models/
 
-# flutter_intl 配置
+# flutter_intl插件/intl_utils cli工具 配置:
 flutter_intl:
-  enabled: true
-  main_locale: en
-  arb_dir: lib/generated/l10n #多语言.arb文件路径
-  output_dir: lib/generated
+  enabled: false #是否激活
+  class_name: S #设置生成的本地化类的名称。默认值：S
+  main_locale: en #设置用于生成本地化文件的主要语言环境, 默认值：en
+  arb_dir: lib/generated/l10n #设置 ARB 资源文件的目录,默认值：lib/l10n
+  output_dir: lib/generated #设置生成的本地化文件的目录,默认值：lib/generated
 
 # Flutter Assets Gen插件(vscode) 配置
 flutter_assets:
@@ -116,3 +126,10 @@ flutter_assets:
   ignore_comments: true
   field_prefix:
   class_name: Assets
+
+
+#  本地的get_cli工具：字体图标配置 命令 get_cli generate icons
+flutter_icons:
+  src_zip: 'assets/download.zip' # 下载的字体图标压缩包资源路径
+  assets_dir: 'assets/icon_font/'  # ttf文件解压的文件夹
+  dist_file: 'lib/app/data/utils/icon_until.dart' # 生成的代码文件路径
