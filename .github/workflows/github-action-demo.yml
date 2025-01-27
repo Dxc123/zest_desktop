@@ -24,29 +24,6 @@ jobs:
       - name: 拉取并检测代码
         uses: actions/checkout@v4
 
-#      - name: 设置 JDK 环境
-#        uses: actions/setup-java@v4
-#        with:
-#          distribution: 'zulu'
-#          java-version: '17' # 根据项目使用的 Java 版本调整
-#
-#      - name:  缓存 Gradle 缓存目录
-#        uses: actions/cache@v3
-#        with:
-#          path: |
-#            ~/.gradle/caches
-#            ~/.gradle/wrapper
-#          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-#          restore-keys: |
-#            ${{ runner.os }}-gradle-
-#
-#      - name: 安装 Android SDK
-#        uses: android-actions/setup-android@v3
-#        with:
-#          api-level: 33
-#          build-tools: '33.0.2'
-#          target: 'android-33'
-
       # 设置 Flutter 环境
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
@@ -64,12 +41,6 @@ jobs:
           echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> android/key.properties
           echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
           echo "storeFile=testhani.jks" >> android/key.properties
-
-      - name: 保存生成的 APK
-        uses: actions/upload-artifact@v3
-        with:
-          name: app-release-apk
-          path: /zest_desktop/build/outputs/apk/release/*.apk
 
       # 缓存依赖
       - name: Cache Flutter dependencies
@@ -95,92 +66,3 @@ jobs:
         with:
           name: flutter-release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
-
-#      - name: 设置flutter版本
-#        uses: subosito/flutter-action@v2
-#        with:
-#          channel: stable
-#          flutter-version: 3.22.0
-#      - run: flutter --version
-#      - run: flutter pub get
-#      - run: dart run build_runner build --delete-conflicting-outputs
-#
-#      - name: 打印版本号
-#        run: |
-#            echo "version: ${{ env.version }}"
-#
-#      # #安卓目录里面已经配置 key.properties文件以及 jks文件等配置时，使用下面👇🏻
-#      # - name: 签名并打包apk
-#      #   uses: r0adkll/sign-android-release@v1
-#      #   # 用于访问动作输出的 ID
-#      #   id: sign_app
-#      #   with:
-#      #     releaseDirectory: app/build/outputs/apk/release
-#      #     signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-#      #     alias: ${{ secrets.KEY_ALIAS  }}
-#      #     keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-#      #     keyPassword: ${{ secrets.KEY_PASSWORD }}
-#      #   env:
-#      #      BUILD_TOOLS_VERSION: "34.0.0"
-#
-#      # #安卓目录里面没有配置 key.properties文件以及 jks文件等配置时，使用下面👇🏻
-#      # - name: 创建 key.properties文件
-#      #   run: |
-#      #     echo "storePassword=${{secrets.KEY_STORE_PASSWORD}}" > key.properties
-#      #     echo "keyPassword=${{secrets.KEY_PASSWORD}}" >> key.properties
-#      #     echo "keyAlias=${{secrets.KEY_ALIAS}}" >> key.properties
-#      #     echo "storeFile=testhani.jks" >> key.properties
-#      #     ls -laq
-#      #     cat key.properties
-#      #   working-directory: android
-#
-#      # - name: 编码并创建jks文件
-#      #   run: echo ${{ secrets.SIGNING_KEY}} | base64 --decode > android/testhani.jks
-#
-#      # - run: flutter pub get
-#      # - run: dart run build_runner build --delete-conflicting-outputs
-#
-#      - name: Build APK
-#        # # 构建不同架构的 apk, armeabi-v7a arm64-v8a x86_64
-#        run: flutter build apk --split-per-abi
-#        # run: flutter build apk --obfuscate --split-debug-info=./symbols
-#        # run: flutter build apk --release
-#
-#      # - name: Ls output directory
-#      #   run: ls -laq build/app/outputs/flutter-apk/
-#
-#      - name: Push APK to Releases
-#        uses: ncipollo/release-action@v1
-#        with:
-#            artifacts: "build/app/outputs/apk/debug/*.apk"
-#            token: ${{ secrets.AUTH_TOKEN }}
-#
-#      # - name: Create Release
-#      #   id: create_release
-#      #   uses: actions/create-release@v1
-#      #   env:
-#      #     GITHUB_TOKEN: ${{ secrets.AUTH_TOKEN }}
-#      #   with:
-#      #     tag_name: ${{ github.ref_name }}
-#      #     release_name: ${{ github.ref_name }}
-#      #     draft: false
-#      #     prerelease: ${{ contains(github.ref, '-alpha') || contains(github.ref, '-beta') }}
-#      #     body: ${{ github.event.head_commit.message }}
-#
-#      # - name: Upload apk Release Asset
-#      #   uses: actions/upload-release-asset@v1
-#      #   env:
-#      #     GITHUB_TOKEN: ${{ secrets.AUTH_TOKEN }}
-#      #   with:
-#      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-#      #     asset_path: ./build/app/outputs/flutter-apk/app-release.apk
-#      #     asset_name: app-release.apk
-#      #     asset_content_type: application/vnd.android.package-archive
-#
-#      # - name: apk上传到蒲公英
-#      #   id: pgyer
-#      #   uses: xtayga/upload-pgyer-action@master
-#      #   with:
-#      #     url: https://www.pgyer.com/apiv2/app/upload
-#      #     forms: '{"_api_key":"${{ secrets.PGY_KEY }}","buildName":"RSSAndroid"}'
-#      #     fileForms: '{"file":"build/app/outputs/apk/release/app-release.apk"}'
