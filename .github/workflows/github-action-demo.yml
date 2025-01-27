@@ -67,6 +67,13 @@ jobs:
       - name: Get Flutter dependencies
         run: flutter pub get
 
+      # 构建时动态升级依赖
+      - name: Upgrade Gradle and Kotlin
+        run: |
+          flutter pub get
+          flutter pub upgrade
+
+
       # 构建 Release APK
       - name: Build Release APK
         run: flutter build apk --release
