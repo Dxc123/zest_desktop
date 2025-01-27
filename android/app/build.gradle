@@ -46,16 +46,22 @@ android {
     }
     signingConfigs {
         release {
-            if (System.getenv()["CI"]) { // CI=true is exported by Codemagic
-                storeFile file(System.getenv()["CM_KEYSTORE_PATH"])
-                storePassword System.getenv()["CM_KEYSTORE_PASSWORD"]
-                keyAlias System.getenv()["CM_KEY_ALIAS"]
-                keyPassword System.getenv()["CM_KEY_PASSWORD"]
-            } else {
-                keyAlias keystoreProperties['keyAlias']
-                keyPassword keystoreProperties['keyPassword']
-                storeFile file(keystoreProperties['storeFile']) ? file(keystoreProperties['storeFile']) : null // 发包使用
-                storePassword keystoreProperties['storePassword']
+//            if (System.getenv()["CI"]) { // CI=true is exported by Codemagic
+//                storeFile file(System.getenv()["CM_KEYSTORE_PATH"])
+//                storePassword System.getenv()["CM_KEYSTORE_PASSWORD"]
+//                keyAlias System.getenv()["CM_KEY_ALIAS"]
+//                keyPassword System.getenv()["CM_KEY_PASSWORD"]
+//            } else {
+//                keyAlias keystoreProperties['keyAlias']
+//                keyPassword keystoreProperties['keyPassword']
+//                storeFile file(keystoreProperties['storeFile']) ? file(keystoreProperties['storeFile']) : null // 发包使用
+//                storePassword keystoreProperties['storePassword']
+//            }
+            release {
+                storeFile keyProperties['storeFile'] ? file(keyProperties['storeFile']) : null
+                storePassword keyProperties['storePassword']
+                keyAlias keyProperties['keyAlias']
+                keyPassword keyProperties['keyPassword']
             }
         }
         debug {

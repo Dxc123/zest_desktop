@@ -42,7 +42,18 @@ jobs:
           echo "keyAlias=${{ secrets.KEY_ALIAS }}" >> android/key.properties
           echo "storeFile=testhani.jks" >> android/key.properties
 
-      # 缓存依赖
+##      验证 Secrets 配置-打印 Secrets 检查值是否正确
+#      - name: Debug Secrets
+#        run: |
+#          echo "KEYSTORE_PASSWORD=${{ secrets.KEYSTORE_PASSWORD }}"
+#          echo "KEY_ALIAS=${{ secrets.KEY_ALIAS }}"
+#          echo "KEY_PASSWORD=${{ secrets.KEY_PASSWORD }}"
+
+#       # 验证文件路径-打印 Android 目录
+#      - name: List Android Directory
+#        run: ls android
+
+        # 缓存依赖
       - name: Cache Flutter dependencies
         uses: actions/cache@v3
         with:
