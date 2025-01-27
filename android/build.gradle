@@ -1,4 +1,5 @@
-allprojects {
+
+buildscript {
     ext.kotlin_version = '1.9.20'
     repositories {
         google()
@@ -7,6 +8,12 @@ allprojects {
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath 'com.android.tools.build:gradle:8.4.2'
+    }
+}
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
     }
 }
 
