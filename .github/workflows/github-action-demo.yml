@@ -2,13 +2,13 @@ name: Flutter 自动化打包
 #触发事件
 on:
   push:
-    branches:
-      - master
+#    branches:
+#      - master
 #   #表示在有tag被push，且tag是以v开头时，运行这个action。
 #   # git tag v1.0.0
 #   # git push --tags
-#    tags:
-#      - "v*"
+    tags:
+      - "v*"
 
 # 并发策略
 concurrency:
