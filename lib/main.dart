@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'app/data/common/services/app_service.dart';
-import 'app/data/common/utils/loading_until.dart';
+import 'app/data/services/app_service.dart';
+import 'app/data/utils/loading_until.dart';
 import 'app/routes/app_pages.dart';
 import 'generated/locales.g.dart';
 import 'generated/l10n.dart';
