@@ -61,10 +61,10 @@ android {
 //        }
 //Github Action Flutter项目打包
         release {
-            storeFile keyProperties['storeFile'] ? file(keyProperties['storeFile']) : null
-            storePassword keyProperties['storePassword']
-            keyAlias keyProperties['keyAlias']
-            keyPassword keyProperties['keyPassword']
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile']) ? file(keystoreProperties['storeFile']) : null // 发包使用
+                storePassword keystoreProperties['storePassword']
         }
         debug {
             keyAlias keystoreProperties['keyAlias']
