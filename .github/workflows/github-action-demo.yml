@@ -77,7 +77,7 @@ jobs:
 
       # 上传生成的 APK
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: flutter-release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
