@@ -107,7 +107,7 @@ jobs:
 
        # 发送邮件
       - name: Send email
-        uses: dawidd6/action-send-mail@v3
+        uses: dawidd6/action-send-mail@v4
         with:
           # 邮箱配置，密码是SMTP服务的授权密码
           server_address: smtp.163.com
