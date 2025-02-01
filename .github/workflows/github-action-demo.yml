@@ -102,6 +102,7 @@ jobs:
           name: "Release ${{ github.ref_name }}"
           body: "This is an automatically generated release."
           allowUpdates: true #是否应更新已存在的版本
+          makeLatest: true #指示发布是否应为“最新”发布
           draft: false #可选择将此版本标记为草稿版本
           prerelease: false #可选择将此版本标记为预发布版本
           token: ${{ secrets.AUTH_TOKEN }}
