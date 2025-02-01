@@ -69,10 +69,8 @@ jobs:
           flutter pub get
           flutter pub upgrade
 
-
       # 构建 Release APK
       - name: Build Release APK
-#        run: flutter build apk --release
         run: flutter build apk --obfuscate --split-debug-info=./symbols
 
       # 上传生成的 APK
@@ -81,3 +79,67 @@ jobs:
         with:
           name: flutter-release-apk
           path: build/app/outputs/flutter-apk/app-release.apk
+
+#      #构建 Release AAB
+#      - name: Build APK and AAB
+#        run: flutter build appbundle --obfuscate --split-debug-info=./obfuse
+#
+#      # 上传生成的 AAB
+#      - name: Upload AAB
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: flutter-release-aab
+#          path: build/app/outputs/bundle/release/app-release.aab
+
+      # 发布到 GitHub Releases
+      - name: Create GitHub Release
+        uses: ncipollo/release-action@v1
+        with:
+          artifacts: |
+            build/app/outputs/flutter-apk/app-release.apk
+            build/app/outputs/bundle/release/app-release.aab
+          tag: ${{ github.ref_name }}
+          name: "Release ${{ github.ref_name }}"
+          body: "This is an automatically generated release."
+          draft: false
+          prerelease: false
+          token: ${{ secrets.AUTH_TOKEN }}
+
+#      #  发布到 GitHub Releases
+#      - name: Create GitHub Release
+#        uses: oberhauser-dev/flutter-release-action@v0
+#        with:
+#          token: ${{ github.token }}
+#          dry-run: true
+#          app-name: 'zest_desktop'
+#          app-version: ${{ github.ref_name }}
+#          tag: ${{ github.ref }}
+#          build-type: 'debian'
+#          build-args: |-
+#            --dart-define=API_URL="https://example.com"
+#            --dart-define=API_KEY=12345678
+
+  # 增加个notice的job，在打包完成后发邮件通知
+  notice:
+    runs-on: ubuntu-latest
+
+    # 依赖于build
+    needs: builds
+
+    # 操作步骤
+    steps:
+      - name: Send email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          # 邮箱配置，密码是SMTP服务的授权密码
+          server_address: smtp.163.com
+          server_port: 465
+          username: ${{secrets.MAIL_USERNAME}}
+          password: ${{secrets.MAIL_PASSWORD}}
+
+          # 邮件内容
+          subject: Github Actions job result
+          from: ${{secrets.MAIL_USERNAME}}
+          to: ${{secrets.MAIL_TOUSERNAME}}
+          body: Build job of ${{github.repository}} completed successfully!
+
