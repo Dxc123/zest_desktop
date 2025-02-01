@@ -101,25 +101,26 @@ jobs:
           tag: ${{ github.ref_name }}
           name: "Release ${{ github.ref_name }}"
           body: "This is an automatically generated release."
-          draft: false
-          prerelease: false
+          allowUpdates: true #是否应更新已存在的版本
+          draft: false #可选择将此版本标记为草稿版本
+          prerelease: false #可选择将此版本标记为预发布版本
           token: ${{ secrets.AUTH_TOKEN }}
 
-       # 发送邮件
-      - name: Send email
-        uses: dawidd6/action-send-mail@v4
-        with:
-          # 邮箱配置，密码是SMTP服务的授权密码
-          server_address: smtp.163.com
-          server_port: 465
-          username: ${{secrets.MAIL_USERNAME}}
-          password: ${{secrets.MAIL_PASSWORD}}
+      #  # 发送邮件
+      # - name: Send email
+      #   uses: dawidd6/action-send-mail@v4
+      #   with:
+      #     # 邮箱配置，密码是SMTP服务的授权密码
+      #     server_address: smtp.163.com
+      #     server_port: 465
+      #     username: ${{secrets.MAIL_USERNAME}}
+      #     password: ${{secrets.MAIL_PASSWORD}}
 
-          # 邮件内容
-          subject: Github Actions job result
-          from: ${{secrets.MAIL_USERNAME}}
-          to: ${{secrets.MAIL_TOUSERNAME}}
-          body: Build job of ${{github.repository}} completed successfully!
+      #     # 邮件内容
+      #     subject: Github Actions job result
+      #     from: ${{secrets.MAIL_USERNAME}}
+      #     to: ${{secrets.MAIL_TOUSERNAME}}
+      #     body: Build job of ${{github.repository}} completed successfully!
 
 
 
