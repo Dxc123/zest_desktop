@@ -105,29 +105,7 @@ jobs:
           prerelease: false
           token: ${{ secrets.AUTH_TOKEN }}
 
-#      #  发布到 GitHub Releases
-#      - name: Create GitHub Release
-#        uses: oberhauser-dev/flutter-release-action@v0
-#        with:
-#          token: ${{ github.token }}
-#          dry-run: true
-#          app-name: 'zest_desktop'
-#          app-version: ${{ github.ref_name }}
-#          tag: ${{ github.ref }}
-#          build-type: 'debian'
-#          build-args: |-
-#            --dart-define=API_URL="https://example.com"
-#            --dart-define=API_KEY=12345678
-
-  # 增加个notice的job，在打包完成后发邮件通知
-  notice:
-    runs-on: ubuntu-latest
-
-    # 依赖于build
-    needs: builds
-
-    # 操作步骤
-    steps:
+       # 发送邮件
       - name: Send email
         uses: dawidd6/action-send-mail@v3
         with:
@@ -142,4 +120,7 @@ jobs:
           from: ${{secrets.MAIL_USERNAME}}
           to: ${{secrets.MAIL_TOUSERNAME}}
           body: Build job of ${{github.repository}} completed successfully!
+
+
+
 
