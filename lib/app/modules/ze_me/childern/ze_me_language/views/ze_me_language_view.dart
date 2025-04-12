@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:math' as math;
 
-import '../../../../generated/l10n.dart';
-import '../../../../generated/locales.g.dart';
-import '../../../data/widgets/gradient_border_container.dart';
+import '../../../../../../generated/l10n.dart';
+import '../../../../../../generated/locales.g.dart';
+import '../../../../../data/widgets/gradient_border_container.dart';
 import '../controllers/ze_me_language_controller.dart';
 
 class ZeMeLanguageView extends GetView<ZeMeLanguageController> {

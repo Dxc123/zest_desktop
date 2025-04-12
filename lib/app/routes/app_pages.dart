@@ -9,6 +9,8 @@ import '../modules/ze_me/childern/ze_me_debouncer/bindings/ze_me_debouncer_bindi
 import '../modules/ze_me/childern/ze_me_debouncer/views/ze_me_debouncer_view.dart';
 import '../modules/ze_me/childern/ze_me_form/bindings/ze_me_form_binding.dart';
 import '../modules/ze_me/childern/ze_me_form/views/ze_me_form_view.dart';
+import '../modules/ze_me/childern/ze_me_language/bindings/ze_me_language_binding.dart';
+import '../modules/ze_me/childern/ze_me_language/views/ze_me_language_view.dart';
 import '../modules/ze_me/childern/ze_me_river_pod/bindings/ze_me_river_pod_binding.dart';
 import '../modules/ze_me/childern/ze_me_river_pod/views/ze_me_river_pod_view.dart';
 import '../modules/ze_me/childern/ze_me_signals/bindings/ze_me_signals_binding.dart';
@@ -18,8 +20,6 @@ import '../modules/ze_me/childern/ze_me_theme/views/ze_me_theme_view.dart';
 import '../modules/ze_me/childern/ze_me_value_notifier/bindings/ze_me_value_notifier_binding.dart';
 import '../modules/ze_me/childern/ze_me_value_notifier/views/ze_me_value_notifier_view.dart';
 import '../modules/ze_me/views/ze_me_view.dart';
-import '../modules/ze_me_language/bindings/ze_me_language_binding.dart';
-import '../modules/ze_me_language/views/ze_me_language_view.dart';
 import '../modules/ze_message/bindings/ze_message_binding.dart';
 import '../modules/ze_message/views/ze_message_view.dart';
 import '../modules/zt_home/bindings/zt_home_binding.dart';
