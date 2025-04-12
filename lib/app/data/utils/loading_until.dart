@@ -19,6 +19,14 @@ class LoadingUtils {
       ..dismissOnTap = false;
   }
 
+  // 显示 Toast
+  static void showToast(String message, {Duration duration = const Duration(seconds: 2)}) {
+    EasyLoading.showToast(message);
+    Future.delayed(duration, () {
+      dismiss();
+    });
+  }
+
   /// 显示加载动画
   /// [message]: 提示文本
   /// [duration]: 显示时间（可选），如果指定时间则自动隐藏

@@ -10,11 +10,18 @@ if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 
+// 修改文件`android/app/build.gradle`，打印 Gradle 和 Flutter 版本
+println "gradle.gradleVersion: $gradle.gradleVersion"
+println "android.buildToolsVersion: $android.buildToolsVersion"
+println "flutter.compileSdkVersion: $flutter.compileSdkVersion"
+println "flutter.targetSdkVersion: $flutter.targetSdkVersion"
+println "flutter.minSdkVersion: $flutter.minSdkVersion"
+println "flutter.ndkVersion: $flutter.ndkVersion"
 
 android {
     namespace = "com.rabbit.zest_desktop"
-    compileSdkVersion 34
-    ndkVersion = flutter.ndkVersion
+    compileSdkVersion 35
+    ndkVersion = "26.1.10909125"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -28,7 +35,7 @@ android {
     defaultConfig {
         applicationId = "com.rabbit.zest_desktop"
         minSdkVersion 21
-        targetSdkVersion 34
+        targetSdkVersion 35
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }

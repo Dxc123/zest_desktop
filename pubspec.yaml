@@ -21,23 +21,20 @@ version: 1.0.0+1
 environment:
   sdk: '>=3.0.0 <4.0.0'
 
-# Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
-# dependencies can be manually updated by changing the version numbers below to
-# the latest version available on pub.dev. To see which dependencies have newer
-# versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
     sdk: flutter
-  # Flutter Intl插件国际化
+  #国际化
   flutter_localizations:
     sdk: flutter
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   get: ^4.6.6
+  signals: ^6.0.2
+  flutter_riverpod: ^2.6.1
+  riverpod_annotation: ^2.6.1
+  get_it: ^8.0.3
+  flutter_hooks: ^0.21.2
+
   dio: ^5.7.0
   json_annotation: ^4.9.0
   freezed_annotation: ^2.4.4
@@ -55,6 +52,16 @@ dependencies:
   permission_handler: ^11.3.1
   device_info_plus: ^11.2.1
   package_info_plus: ^8.1.3
+  android_id: ^0.4.0
+  encrypt: ^5.0.3
+  pointycastle: ^3.9.1
+  flutter_form_builder: ^9.5.0
+  intl: ^0.19.0
+  adaptive_theme: ^3.6.0 #设置明暗主题
+  flutter_dotenv: ^5.2.1 #管理多个环境
+  device_preview: ^1.2.0 #设备预览
+  secure_application: ^4.1.0 #应用加密
+#  advanced_textfield: ^1.0.1 #自定义输入框
 
 
 
@@ -65,6 +72,12 @@ dev_dependencies:
   build_runner: ^2.4.13
   json_serializable: ^6.8.0
   freezed: ^2.5.2
+  riverpod_generator: ^2.4.0
+  flutter_launcher_icons: ^0.14.3 #启动图生成
+  flutter_native_splash: ^2.4.4 #闪屏页生成
+  change_app_package_name: ^1.5.0 #修改包名
+  envied_generator: ^1.1.1
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -111,8 +124,11 @@ flutter:
     - assets/images/
     - assets/locales/
     - assets/models/
+    - .env.dev
+    - .env.prod
 
-# flutter_intl插件/intl_utils cli工具 配置:
+# intl_utils插件 cli工具 配置:
+#命令：dart run intl_utils:generate
 flutter_intl:
   enabled: false #是否激活
   class_name: S #设置生成的本地化类的名称。默认值：S
@@ -130,8 +146,47 @@ flutter_assets:
   class_name: Assets
 
 
-#  本地的get_cli工具：字体图标配置 命令 get_cli generate icons
-flutter_icons:
-  src_zip: 'assets/download.zip' # 下载的字体图标压缩包资源路径
-  assets_dir: 'assets/icon_font/'  # ttf文件解压的文件夹
-  dist_file: 'lib/app/data/utils/icon_until.dart' # 生成的代码文件路径
+##  本地的get_cli工具：字体图标配置 命令 get_cli generate icons
+#flutter_icons:
+#  src_zip: 'assets/download.zip' # 下载的字体图标压缩包资源路径
+#  assets_dir: 'assets/icon_font/'  # ttf文件解压的文件夹
+#  dist_file: 'lib/app/data/utils/icon_until.dart' # 生成的代码文件路径
+
+
+
+#命令：dart run flutter_launcher_icons
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/app_logo.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/images/app_logo.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/images/app_logo.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/images/app_logo.png"
+
+# dart run flutter_native_splash:create
+# dart run flutter_native_splash:remove
+flutter_native_splash:
+  background_image: "assets/images/app_launcher_splash_2.png"
+  android: true
+  ios: true
+  web: false
+
+  android_gravity: fill
+  ios_content_mode: scaleToFill
+  web_image_mode: center
+
+  android_12:
+    image: "assets/images/app_logo.png"
+    icon_background_color: "#ffffff"
+    image_dark: "assets/images/app_logo.png"
+    icon_background_color_dark: "#121212"
