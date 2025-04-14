@@ -72,16 +72,15 @@ jobs:
           flutter build ipa --release \
             --export-options-plist=ios/ExportOptions.plist
 
-      - name: Upload IPA Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ios-ipa
-          path: build/ios/ipa/Runner.ipa
-
       - name: List IPA Output
         run: ls -R build/ios/ipa
 
-
+      # 上传 IPA
+      - name: Upload IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: zest_desktop
+          path: build/ios/ipa/zest_desktop.ipa
 
       - name: Generate release tag
         id: tagger
