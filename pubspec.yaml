@@ -124,8 +124,7 @@ flutter:
     - assets/images/
     - assets/locales/
     - assets/models/
-    - .env.dev
-    - .env.prod
+    - lib/core/env/
 
 # intl_utils插件 cli工具 配置:
 #命令：dart run intl_utils:generate

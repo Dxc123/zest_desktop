@@ -15,7 +15,7 @@ class ZtHomeView extends GetView<ZtHomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text('API_URL: ${EnvConfig.apiUrl}'),
+        title:  Text('API_URL: ${EnvConfig.instance.baseUrl}'),
         centerTitle: true,
       ),
       body: Padding(

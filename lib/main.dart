@@ -24,7 +24,8 @@ void main() async {
   await Get.putAsync(() => AppService().init());
   await Get.putAsync(() => AppMyInfoService().init());
   final savedThemeMode = await AdaptiveTheme.getThemeMode();
-  await EnvConfig.loadEnv();
+  // TODO:配置环境文件 dev/prod
+  await EnvConfig.instance.loadConfig(flavor: "dev");
   // runApp(DevicePreview(
   //   enabled: !kReleaseMode,
   //   builder: (context) => MyApp(savedThemeMode: savedThemeMode),
