@@ -64,3 +64,12 @@ jobs:
         with:
           name: ios-ipa
           path: build/ios/ipa/*.ipa
+
+      - name: Create GitHub Release and Upload IPA
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/ios/ipa/*.ipa
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+
