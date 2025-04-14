@@ -23,11 +23,13 @@ jobs:
           channel: stable
           flutter-version: '3.24.5'  # 替换为你的 Flutter 版本
 
+      - name: Flutter pub get
+        run: flutter pub get
+
       - name: Install CocoaPods dependencies
         run: |
           cd ios
           pod install
-          cd ..
 
       - name: Decode provisioning profile and certificate
         env:
