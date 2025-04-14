@@ -7,6 +7,9 @@ on:
 #    tags:   #指定触发构建的某个 tag版本 如：git tag v1.0.0 , git push --tags
 #      - "v*"
 
+permissions:
+  contents: write  # 🔥 关键权限！允许推送 tag / 创建 release
+
 # 并发策略
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
