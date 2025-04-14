@@ -65,6 +65,16 @@ jobs:
           name: ios-ipa
           path: build/ios/ipa/*.ipa
 
+      - name: Generate release tag
+        id: tagger
+        run: |
+          TAG_NAME="build-$(date +'%Y%m%d%H%M%S')"
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
+          git tag $TAG_NAME
+          git push origin $TAG_NAME
+          echo "tag=$TAG_NAME" >> $GITHUB_OUTPUT
+
       - name: Create GitHub Release and Upload IPA
         uses: softprops/action-gh-release@v1
         with:
