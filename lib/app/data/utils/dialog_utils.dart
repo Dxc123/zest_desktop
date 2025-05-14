@@ -34,7 +34,7 @@ class DialogUtils {
       AlertDialog(
         title: Text(title),
         content: Text(content),
-        actions: [
+        actions: <Widget>[
           TextButton(
             onPressed: onCancel ?? () => Get.back(),
             child: Text(cancelText),
@@ -75,7 +75,7 @@ class DialogUtils {
     Get.dialog(
       AlertDialog(
         content: content,
-        actions: [
+        actions: <Widget>[
           TextButton(
             onPressed: onCancel ?? () => Get.back(),
             child: Text(cancelText),
@@ -144,13 +144,13 @@ class DialogUtils {
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: <Widget>[
             Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
             const SizedBox(height: 10),
             ListView.builder(
               shrinkWrap: true,
               itemCount: options.length,
-              itemBuilder: (context, index) {
+              itemBuilder: (BuildContext context, int index) {
                 return ListTile(
                   title: Text(options[index]),
                   onTap: () {

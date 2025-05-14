@@ -1,7 +1,16 @@
+
+#  自定义 analysis 规则
+#  使用命令flutter analyze
+
 include: package:flutter_lints/flutter.yaml
 linter:
   rules:
+    - avoid_print: false # 是否禁止print打印语句
+    - prefer_const_constructors: warning #使用const构造函数
+    - prefer_final_locals #使用final变量
+    - prefer_is_empty #使用isEmpty
+    - prefer_const_declarations #使用const变量
+    - sort_constructors_first #构造函数优先
 analyzer:
   errors:
     invalid_annotation_target: ignore
-

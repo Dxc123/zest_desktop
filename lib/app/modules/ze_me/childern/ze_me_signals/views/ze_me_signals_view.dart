@@ -13,11 +13,11 @@ class ZeMeSignalsView extends StatefulWidget {
 }
 
 class _ZeMeSignalsViewState extends State<ZeMeSignalsView> with SignalsMixin {
-  final controller = Get.put(ZeMeSignalsController());
+  final ZeMeSignalsController controller = Get.put(ZeMeSignalsController());
 
-  late final counter = createSignal(0);
-  late final isEven = createComputed(() => counter.value.isEven);
-  late final isOdd = createComputed(() => counter.value.isOdd);
+  late final Signal<int> counter = createSignal(0);
+  late final Computed<bool> isEven = createComputed(() => counter.value.isEven);
+  late final Computed<bool> isOdd = createComputed(() => counter.value.isOdd);
 
   @override
   void dispose() {
@@ -29,13 +29,13 @@ class _ZeMeSignalsViewState extends State<ZeMeSignalsView> with SignalsMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ZeMeSignalsView'),
+        title: const Text(' Signals Demo '),
         centerTitle: true,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: <Widget>[
             Text('Counter: $counter'),
             const SizedBox(height: 20),
             Text('Is Even: $isEven'),

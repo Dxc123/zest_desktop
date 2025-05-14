@@ -20,32 +20,32 @@ class DeviceInfoUtils {
       } else if (Platform.isIOS) {
         return _getIOSDeviceInfo();
       } else {
-        return {'error': 'Unsupported platform'};
+        return <String, dynamic>{'error': 'Unsupported platform'};
       }
     } catch (e) {
-      return {'error': e.toString()};
+      return <String, dynamic>{'error': e.toString()};
     }
   }
 
   /// 获取应用信息，通过 package_info_plus 获取应用的名称、包名、版本号等信息。
   static Future<Map<String, String>> getAppInfo() async {
     try {
-      final packageInfo = await PackageInfo.fromPlatform();
-      return {
+      final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+      return <String, String>{
         'appName': packageInfo.appName,
         'packageName': packageInfo.packageName,
         'version': packageInfo.version,
         'buildNumber': packageInfo.buildNumber,
       };
     } catch (e) {
-      return {'error': e.toString()};
+      return <String, String>{'error': e.toString()};
     }
   }
 
   /// 获取Android设备信息
   static Future<Map<String, dynamic>> _getAndroidDeviceInfo() async {
-    final androidInfo = await _deviceInfoPlugin.androidInfo;
-    return {
+    final AndroidDeviceInfo androidInfo = await _deviceInfoPlugin.androidInfo;
+    return <String, dynamic>{
       'brand': androidInfo.brand,
       'device': androidInfo.device,
       'model': androidInfo.model,
@@ -58,8 +58,8 @@ class DeviceInfoUtils {
 
   /// 获取iOS设备信息
   static Future<Map<String, dynamic>> _getIOSDeviceInfo() async {
-    final iosInfo = await _deviceInfoPlugin.iosInfo;
-    return {
+    final IosDeviceInfo iosInfo = await _deviceInfoPlugin.iosInfo;
+    return <String, dynamic>{
       'name': iosInfo.name,
       'systemName': iosInfo.systemName,
       'systemVersion': iosInfo.systemVersion,

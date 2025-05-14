@@ -16,7 +16,7 @@ class ZeMainView extends StatefulWidget {
 }
 
 class _ZeMainViewState extends State<ZeMainView> with AutomaticKeepAliveClientMixin, WidgetsBindingObserver {
-  final controller = Get.put(ZeMainController());
+  final ZeMainController controller = Get.put(ZeMainController());
 
   @override
   bool get wantKeepAlive => true;
@@ -43,16 +43,16 @@ class _ZeMainViewState extends State<ZeMainView> with AutomaticKeepAliveClientMi
       body: Obx(() {
         controller.pageSelectedIndex.value;
         return Stack(
-          children: [
+          children: <Widget>[
             Column(
-              children: [
+              children: <Widget>[
                 Expanded(
                   child: PageView(
                     pageSnapping: false,
                     scrollBehavior: null,
                     physics: const NeverScrollableScrollPhysics(),
                     controller: controller.pageController,
-                    children: const [
+                    children: const <Widget>[
                       ZtHomeView(),
                       ZeDiscoverView(),
                       ZeMessageView(),
@@ -67,7 +67,7 @@ class _ZeMainViewState extends State<ZeMainView> with AutomaticKeepAliveClientMi
               end: 0,
               bottom: 0,
               child: Stack(
-                children: [
+                children: <Widget>[
                   Container(
                     padding: const EdgeInsets.only(top: 15),
                     color: Colors.white,
@@ -77,7 +77,7 @@ class _ZeMainViewState extends State<ZeMainView> with AutomaticKeepAliveClientMi
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
+                        children: <Widget>[
                           _buildSelect("app_tab_home", 0),
                           _buildSelect("app_tab_discover", 1),
                           _buildSelect("app_tab_message", 2),

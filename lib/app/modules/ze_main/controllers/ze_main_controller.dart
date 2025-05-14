@@ -3,22 +3,14 @@ import 'package:get/get.dart';
 
 class ZeMainController extends GetxController {
   late final PageController pageController;
-  var pageSelectedIndex = 0.obs;
+  RxInt pageSelectedIndex = 0.obs;
   @override
   void onInit() {
     super.onInit();
     pageController = PageController(initialPage: 0);
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   void handleNavBarTap(int index) {
     if (pageSelectedIndex.value == index) return;

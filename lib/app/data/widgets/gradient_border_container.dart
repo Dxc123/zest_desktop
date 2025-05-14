@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 
 // GradientBorderContainer 渐变边框容器
-class GradientBorderContainer extends StatelessWidget {
-  final Widget content; // The widget inside the container
-  final double radius; // Radius of the border's corners
-  final double borderWidth; // Width of the border
-  final Gradient borderGradient; // The gradient applied to the border
-  final EdgeInsetsGeometry? margin; // Margin around the container
-  final EdgeInsetsGeometry? contentPadding; // Padding inside the content
+class GradientBorderContainer extends StatelessWidget { // Padding inside the content
   const GradientBorderContainer({
     required this.content,
     required this.borderGradient,
@@ -17,6 +11,12 @@ class GradientBorderContainer extends StatelessWidget {
     this.margin,
     this.contentPadding,
   });
+  final Widget content; // The widget inside the container
+  final double radius; // Radius of the border's corners
+  final double borderWidth; // Width of the border
+  final Gradient borderGradient; // The gradient applied to the border
+  final EdgeInsetsGeometry? margin; // Margin around the container
+  final EdgeInsetsGeometry? contentPadding;
   @override
   Widget build(final BuildContext context) {
     return Container(

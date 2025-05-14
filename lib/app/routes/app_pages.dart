@@ -19,6 +19,9 @@ import '../modules/ze_me/childern/ze_me_theme/bindings/ze_me_theme_binding.dart'
 import '../modules/ze_me/childern/ze_me_theme/views/ze_me_theme_view.dart';
 import '../modules/ze_me/childern/ze_me_value_notifier/bindings/ze_me_value_notifier_binding.dart';
 import '../modules/ze_me/childern/ze_me_value_notifier/views/ze_me_value_notifier_view.dart';
+import '../modules/ze_me/childern/zt_me_extensions/bindings/zt_me_extensions_binding.dart';
+import '../modules/ze_me/childern/zt_me_extensions/controllers/zt_me_extensions_controller.dart';
+import '../modules/ze_me/childern/zt_me_extensions/views/zt_me_extensions_view.dart';
 import '../modules/ze_me/views/ze_me_view.dart';
 import '../modules/ze_message/bindings/ze_message_binding.dart';
 import '../modules/ze_message/views/ze_message_view.dart';
@@ -106,6 +109,11 @@ class AppPages {
       name: _Paths.ZE_MESSAGE,
       page: () => const ZeMessageView(),
       binding: ZeMessageBinding(),
+    ),
+    GetPage(
+      name: _Paths.ZT_ME_EXTENSIONS,
+      page: () => const ZtMeExtensionsView(),
+      binding: ZtMeExtensionsBinding(),
     ),
   ];
 }

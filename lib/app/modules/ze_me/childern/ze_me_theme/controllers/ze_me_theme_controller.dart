@@ -3,21 +3,9 @@ import 'package:get/get.dart';
 class ZeMeThemeController extends GetxController {
   //TODO: Implement ZeMeThemeController
 
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
+  final RxInt count = 0.obs;
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
 
   void increment() => count.value++;
 }

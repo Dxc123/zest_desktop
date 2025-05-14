@@ -14,16 +14,16 @@ class ZeMeFormView extends StatefulWidget {
 }
 
 class _ZeMeFormViewState extends State<ZeMeFormView>with TfValidators {
-  final controller = Get.put(ZeMeFormController());
+  final ZeMeFormController controller = Get.put(ZeMeFormController());
 
-  final usernameController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
 
-  final pinController = TextEditingController();
+  final TextEditingController pinController = TextEditingController();
 
-  final _formKey = GlobalKey<FormState>();
-  final _formKey22 = GlobalKey<FormState>();
-  final _formKey33 = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey22 = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formKey33 = GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
   @override
   void dispose() {
     Get.delete<ZeMeFormController>();
@@ -32,17 +32,17 @@ class _ZeMeFormViewState extends State<ZeMeFormView>with TfValidators {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(title: const Text('Form Demo')),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        children: <Widget>[
           Form(
             key: _formKey,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: <Widget>[
                   TextFormField(
                       keyboardType: TextInputType.text,
                       controller: usernameController,
@@ -74,7 +74,7 @@ class _ZeMeFormViewState extends State<ZeMeFormView>with TfValidators {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
-                children: [
+                children: <Widget>[
                   FormBuilderTextField(
                     name: 'email',
                     decoration: const InputDecoration(labelText: 'Email'),
@@ -117,7 +117,7 @@ class _ZeMeFormViewState extends State<ZeMeFormView>with TfValidators {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Column(
-                children: [
+                children: <Widget>[
                   // AdvancedTextfield(
                   //   hintText: "Enter your email",
                   //   labelText:"Email",

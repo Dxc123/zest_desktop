@@ -4,8 +4,23 @@ import 'package:get/get.dart';
 
 import '../controllers/zt_login_controller.dart';
 
-class ZtLoginView extends GetView<ZtLoginController> {
+
+class ZtLoginView extends StatefulWidget {
   const ZtLoginView({super.key});
+
+  @override
+  State<ZtLoginView> createState() => _ZtLoginViewState();
+}
+
+class _ZtLoginViewState extends State<ZtLoginView> {
+  final controller = Get.put(ZtLoginController());
+
+  @override
+  void dispose() {
+    Get.delete<ZtLoginController>();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,13 +28,19 @@ class ZtLoginView extends GetView<ZtLoginController> {
         title: const Text('ZtLoginView'),
         centerTitle: true,
       ),
-      body: const Center(
-        child: Text(
-          'ZtLoginView is working',
-          style: TextStyle(fontSize: 20),
+      body:  Center(
+        child: Column(
+          children: [
+            const Text(
+              'ZtLoginView is working',
+              style: TextStyle(fontSize: 20),
+            ),
+            OutlinedButton(onPressed: () {
+             controller.login();
+            }, child: const Text("登录"))
+          ],
         ),
       ),
     );
   }
 }
-

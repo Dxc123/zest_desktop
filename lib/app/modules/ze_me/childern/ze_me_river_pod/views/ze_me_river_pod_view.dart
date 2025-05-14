@@ -17,9 +17,9 @@ class ZeMeRiverPodView extends ConsumerStatefulWidget {
 
 class _ZeMeRiverPodViewState extends ConsumerState<ZeMeRiverPodView> {
 
-  final controller = Get.put(ZeMeRiverPodController());
+  final ZeMeRiverPodController controller = Get.put(ZeMeRiverPodController());
 
-  final tfController = useTextEditingController(text: 'initial text');
+  final TextEditingController tfController = useTextEditingController(text: 'initial text');
 @override
   void dispose() {
     Get.delete<ZeMeRiverPodController>();
@@ -34,7 +34,7 @@ class _ZeMeRiverPodViewState extends ConsumerState<ZeMeRiverPodView> {
           title: const Text('Choose Theme'),
           content: Column(
             mainAxisSize: MainAxisSize.min,
-            children: [
+            children: <Widget>[
               ListTile(
                 title: const Text('Light Theme'),
                 onTap: () {
@@ -65,7 +65,7 @@ class _ZeMeRiverPodViewState extends ConsumerState<ZeMeRiverPodView> {
               ),
             ],
           ),
-          actions: [
+          actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.pop(context),
               child: const Text('Close'),
@@ -80,13 +80,13 @@ class _ZeMeRiverPodViewState extends ConsumerState<ZeMeRiverPodView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ZeMeRiverPodView'),
+        title: const Text('RiverPod Demo'),
         centerTitle: true,
       ),
       body:  Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: <Widget>[
             const Text(
               'ZeMeRiverPodView is working',
               style: TextStyle(fontSize: 20),

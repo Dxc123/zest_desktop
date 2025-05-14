@@ -1,19 +1,41 @@
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
-part 'app_my_info_entity.g.dart';
+
+import '../../../generated/json/app_my_info_entity.g.dart';
 // /使用 json_serializable
 // https://dartj.web.app/  json生成对应 model
 /// 有数据模型更新要执行下面语句 =>>
 /// dart run build_runner build --delete-conflicting-outputs
 
 @JsonSerializable()
+class AppInfoDetailBaseEntity {
+  AppInfoDetailBaseEntity();
+
+  factory AppInfoDetailBaseEntity.fromJson(Map<String, dynamic> json) => $AppInfoDetailBaseEntityFromJson(json);
+
+  int? code;
+  String? message;
+  int? timestamp;
+  AppInfoDetailEntity? data;
+
+  Map<String, dynamic> toJson() => $AppInfoDetailBaseEntityToJson(this);
+
+  @override
+  String toString() {
+    return jsonEncode(this);
+  }
+}
+
+@JsonSerializable()
 class AppInfoDetailEntity {
   AppInfoDetailEntity();
 
-  factory AppInfoDetailEntity.fromJson(Map<String, dynamic> json) => _$AppInfoDetailEntityFromJson(json);
+  factory AppInfoDetailEntity.fromJson(Map<String, dynamic> json) => $AppInfoDetailEntityFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AppInfoDetailEntityToJson(this);
+  Map<String, dynamic> toJson() => $AppInfoDetailEntityToJson(this);
 
-  String? userId;
+  int? userId;
   String? username;
   //认证状态(主播使用)
   int? auth;
@@ -92,9 +114,9 @@ class AppInfoDetailEntity {
 class AppBalanceBeanEntity {
   AppBalanceBeanEntity();
 
-  factory AppBalanceBeanEntity.fromJson(Map<String, dynamic> json) => _$AppBalanceBeanEntityFromJson(json);
+  factory AppBalanceBeanEntity.fromJson(Map<String, dynamic> json) => $AppBalanceBeanEntityFromJson(json);
 
-  Map<String, dynamic> toJson() => _$AppBalanceBeanEntityToJson(this);
+  Map<String, dynamic> toJson() => $AppBalanceBeanEntityToJson(this);
 
   int? userId;
   //总充值

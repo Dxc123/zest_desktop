@@ -51,9 +51,9 @@ class IntlUtil {
   //时间戳转换显示刚刚、几分钟前、几小时前、几天前、年月日等格式
   static String formatMessageTime(int timeStamp) {
     //当前13位毫秒时间戳
-    int nowTimeStamp = DateTime.now().millisecondsSinceEpoch;
+    final int nowTimeStamp = DateTime.now().millisecondsSinceEpoch;
     //时间戳对比
-    int distance = nowTimeStamp - timeStamp;
+    final int distance = nowTimeStamp - timeStamp;
     if (distance <= 60 * 1000) {
       //一分钟内-刚刚
       // return Tr.radiant_base_just_now.tr;
@@ -81,14 +81,14 @@ class IntlUtil {
     } else if (DateTime.fromMillisecondsSinceEpoch(nowTimeStamp).year == DateTime.fromMillisecondsSinceEpoch(timeStamp).year) {
       // 同一年
       // 格式化时间戳->月/日 时/秒
-      var time = DateTime.fromMillisecondsSinceEpoch(timeStamp);
+      final DateTime time = DateTime.fromMillisecondsSinceEpoch(timeStamp);
       return "${time.month}-${time.day}  ${time.hour}:${time.minute}";
       // var timeStr = DateFormat('MM-DD HH:mm').format(time);
       // return timeStr;
     } else {
       // 不同年
       // 格式化时间戳->年/月/日 时/秒
-      var time = DateTime.fromMillisecondsSinceEpoch(timeStamp);
+      final DateTime time = DateTime.fromMillisecondsSinceEpoch(timeStamp);
       return "${time.year}-${time.month}-${time.day} ${time.hour}:${time.minute}";
       // var timeStr = DateFormat('YY-MM-DD HH:mm').format(time);
       // return timeStr;

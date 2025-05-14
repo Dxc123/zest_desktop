@@ -41,7 +41,7 @@ class PermissionUtils {
 
   /// 请求单个权限
   static Future<bool> requestPermission(Permission permission) async {
-    final status = await permission.request();
+    final PermissionStatus status = await permission.request();
     return status.isGranted;
   }
 
@@ -52,8 +52,8 @@ class PermissionUtils {
 
   /// 请求多个权限
   static Future<bool> requestPermissions(List<Permission> permissions) async {
-    final statuses = await permissions.request();
-    return statuses.values.every((status) => status.isGranted);
+    final Map<Permission, PermissionStatus> statuses = await permissions.request();
+    return statuses.values.every((PermissionStatus status) => status.isGranted);
   }
 
   /// 检查权限是否永久被拒绝

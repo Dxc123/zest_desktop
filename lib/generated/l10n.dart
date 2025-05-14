@@ -26,13 +26,13 @@ class S {
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
+    final String name = (locale.countryCode?.isEmpty ?? false)
         ? locale.languageCode
         : locale.toString();
-    final localeName = Intl.canonicalizedLocale(name);
+    final String localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
-      final instance = S();
+      final S instance = S();
       S._current = instance;
 
       return instance;
@@ -40,7 +40,7 @@ class S {
   }
 
   static S of(BuildContext context) {
-    final instance = S.maybeOf(context);
+    final S? instance = S.maybeOf(context);
     assert(instance != null,
         'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
     return instance!;
@@ -56,7 +56,7 @@ class S {
       'Login',
       name: 'login',
       desc: '',
-      args: [],
+      args: <Object>[],
     );
   }
 
@@ -66,7 +66,7 @@ class S {
       'Sign-in',
       name: 'sign_in',
       desc: '',
-      args: [],
+      args: <Object>[],
     );
   }
 
@@ -76,7 +76,7 @@ class S {
       'Logout',
       name: 'logout',
       desc: '',
-      args: [],
+      args: <Object>[],
     );
   }
 
@@ -86,7 +86,7 @@ class S {
       'Sign-in with Facebook',
       name: 'sign_in_fb',
       desc: '',
-      args: [],
+      args: <Object>[],
     );
   }
 
@@ -96,7 +96,7 @@ class S {
       'Sign-in with Google',
       name: 'sign_in_google',
       desc: '',
-      args: [],
+      args: <Object>[],
     );
   }
 
@@ -106,7 +106,7 @@ class S {
       'Sign-in with Apple',
       name: 'sign_in_apple',
       desc: '',
-      args: [],
+      args: <Object>[],
     );
   }
 }
@@ -129,7 +129,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   bool shouldReload(AppLocalizationDelegate old) => false;
 
   bool _isSupported(Locale locale) {
-    for (var supportedLocale in supportedLocales) {
+    for (Locale supportedLocale in supportedLocales) {
       if (supportedLocale.languageCode == locale.languageCode) {
         return true;
       }

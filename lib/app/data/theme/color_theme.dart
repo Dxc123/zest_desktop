@@ -1,3 +1,3 @@
 import 'dart:ui';
 
-final colorCard = const Color(0xffEDEDEE);
+const Color colorCard = Color(0xffEDEDEE);

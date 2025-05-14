@@ -46,15 +46,15 @@ Task 2 completed
 
  */
 class IsolatePool {
+
+  IsolatePool(this.maxConcurrent);
   final int maxConcurrent;
   int _runningCount = 0;
   final Queue<_IsolateTask> _taskQueue = Queue();
 
-  IsolatePool(this.maxConcurrent);
-
   Future<R> run<T, R>(R Function(T args) task, T args) async {
-    final completer = Completer<R>();
-    final isolateTask = _IsolateTask<T, R>(
+    final Completer<R> completer = Completer<R>();
+    final _IsolateTask<T, R> isolateTask = _IsolateTask<T, R>(
       task: task,
       args: args,
       completer: completer,
@@ -85,8 +85,8 @@ class IsolatePool {
   }
 
   Future<R> _spawnIsolate<T, R>(R Function(T args) task, T args) async {
-    final receivePort = ReceivePort();
-    final isolate = await Isolate.spawn(
+    final ReceivePort receivePort = ReceivePort();
+    final Isolate isolate = await Isolate.spawn(
       _isolateEntryPoint,
       _IsolateMessage<T, R>(
         task: task,
@@ -108,25 +108,25 @@ class IsolatePool {
 }
 
 class _IsolateTask<T, R> {
-  final R Function(T args) task;
-  final T args;
-  final Completer<R> completer;
 
   _IsolateTask({
     required this.task,
     required this.args,
     required this.completer,
   });
+  final R Function(T args) task;
+  final T args;
+  final Completer<R> completer;
 }
 
 class _IsolateMessage<T, R> {
-  final R Function(T args) task;
-  final T args;
-  final SendPort sendPort;
 
   _IsolateMessage({
     required this.task,
     required this.args,
     required this.sendPort,
   });
+  final R Function(T args) task;
+  final T args;
+  final SendPort sendPort;
 }

@@ -18,6 +18,9 @@ abstract class Routes {
   static const ZE_DISCOVER = _Paths.ZE_DISCOVER;
   static const ZE_ME_LANGUAGE = _Paths.ZE_ME_LANGUAGE;
   static const ZE_MESSAGE = _Paths.ZE_MESSAGE;
+  static const ZT_ME_EXTENSIONS = _Paths.ZT_ME_EXTENSIONS;
+  static const ZT_DEMO_TEST = _Paths.ZT_DEMO_TEST;
+
 }
 
 abstract class _Paths {
@@ -36,4 +39,6 @@ abstract class _Paths {
   static const ZE_DISCOVER = '/ze-discover';
   static const ZE_ME_LANGUAGE = '/ze-me-language';
   static const ZE_MESSAGE = '/ze-message';
+  static const ZT_ME_EXTENSIONS = '/ze-me-extensions';
+  static const ZT_DEMO_TEST = '/ze-demo-test';
 }

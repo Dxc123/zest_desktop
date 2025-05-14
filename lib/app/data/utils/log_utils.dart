@@ -87,7 +87,7 @@ class LoggerUtils {
     level: Level.debug, // 设置默认日志级别
     filter: null, // 默认输出所有日志
     printer: PrettyPrinter(
-      methodCount: 0,
+      methodCount: 2,
       // 显示方法调用栈深度
       errorMethodCount: 5,
       // 错误显示方法调用栈深度
@@ -97,7 +97,7 @@ class LoggerUtils {
       // 是否启用颜色输出
       printEmojis: true,
       // 是否启用表情符号
-      printTime: false, // 是否显示时间戳
+        dateTimeFormat : DateTimeFormat.none // 是否显示时间戳
     ),
     output: null, // 默认控制台输出
   );
@@ -109,6 +109,9 @@ class LoggerUtils {
   /// 调试日志
   static void d(String message) {
     _logger.d(message);
+  }
+  static void dio(String message) {
+    // _logger.d(message);
   }
 
   /// 信息日志

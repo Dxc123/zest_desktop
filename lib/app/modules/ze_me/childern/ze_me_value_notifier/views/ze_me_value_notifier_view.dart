@@ -13,7 +13,7 @@ class ZeMeValueNotifierView extends StatefulWidget {
 }
 
 class _ZeMeValueNotifierViewState extends State<ZeMeValueNotifierView> {
-  final zeMeValueNotifierController = Get.put(ZeMeValueNotifierController());
+  final ZeMeValueNotifierController zeMeValueNotifierController = Get.put(ZeMeValueNotifierController());
 
   final CounterValueNotifier counter = CounterValueNotifier();
 
@@ -27,21 +27,21 @@ class _ZeMeValueNotifierViewState extends State<ZeMeValueNotifierView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ZeMeValueNotifierView'),
+        title: const Text('ValueNotifier Demo'),
         centerTitle: true,
       ),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
-            children: [
+            children: <Widget>[
               const Text(
                 'ZeMeValueNotifierView is working',
                 style: TextStyle(fontSize: 20),
               ),
               ValueListenableBuilder<int>(
                 valueListenable: counter.count,
-                builder: (BuildContext context, int value, child) {
+                builder: (BuildContext context, int value, Widget? child) {
                   return Text(
                     '$value',
                     style: Theme.of(context).textTheme.headlineMedium,
@@ -71,7 +71,7 @@ class _ZeMeValueNotifierViewState extends State<ZeMeValueNotifierView> {
               ),
               ValueListenableBuilder<bool>(
                 valueListenable: ValueNotifier<bool>(counter.isValid),
-                builder: (BuildContext context, bool isValid, child) {
+                builder: (BuildContext context, bool isValid, Widget? child) {
                   return ElevatedButton(
                     onPressed: () => counter.incrementCount(),
                     child: const Text('Increment'),

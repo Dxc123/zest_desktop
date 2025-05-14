@@ -1,23 +1,19 @@
 import 'package:get/get.dart';
 
 class ZtHomeController extends GetxController {
-  //TODO: Implement ZtHomeController
-
-  final count = 0.obs;
   @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {
-    super.onClose();
-  }
-
-  void increment() => count.value++;
+    void onInit() {
+      // TODO: implement onInit
+      super.onInit();
+    }
+    @override
+    void onReady() {
+      // TODO: implement onReady
+      super.onReady();
+    }
+    @override
+    void onClose() {
+      // TODO: implement onClose
+      super.onClose();
+    }
 }

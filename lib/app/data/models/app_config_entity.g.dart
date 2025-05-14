@@ -6,6 +6,21 @@ part of 'app_config_entity.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+AppBaseEntity _$AppBaseEntityFromJson(Map<String, dynamic> json) =>
+    AppBaseEntity()
+      ..code = (json['code'] as num?)?.toInt()
+      ..message = json['message'] as String?
+      ..timestamp = (json['timestamp'] as num?)?.toInt()
+      ..data = json['data'];
+
+Map<String, dynamic> _$AppBaseEntityToJson(AppBaseEntity instance) =>
+    <String, dynamic>{
+      'code': instance.code,
+      'message': instance.message,
+      'timestamp': instance.timestamp,
+      'data': instance.data,
+    };
+
 AppConfigEntity _$AppConfigEntityFromJson(Map<String, dynamic> json) =>
     AppConfigEntity()
       ..code = (json['code'] as num?)?.toInt()
@@ -28,7 +43,7 @@ AppConfigEntityData _$AppConfigEntityDataFromJson(Map<String, dynamic> json) =>
       ..aiHelp = json['aiHelp'] as String?
       ..sendMsgDiamondsPrice = (json['sendMsgDiamondsPrice'] as num?)?.toInt()
       ..appStoreWriteLink = json['appStoreWriteLink'] as String?
-      ..freeMessageCount = (json['free_message_count'] as num?)?.toInt()
+      ..freeMessageCount = json['free_message_count'] as String?
       ..email = json['email'] as String?
       ..promotionTime = json['promotionTime'] as String?
       ..whatsapp = json['whatsapp'] as String?

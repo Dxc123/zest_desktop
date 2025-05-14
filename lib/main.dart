@@ -1,8 +1,5 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:device_preview/device_preview.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,10 +7,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'package:get/get.dart';
 import 'package:secure_application/secure_application.dart';
-import 'package:signals/signals_flutter.dart';
 
+import 'app/data/api_net_request/api_net_request.dart';
+import 'app/data/api_retrofit/api_client_service.dart';
 import 'app/data/services/app_my_info_service.dart';
-import 'app/data/services/app_service.dart';
+import 'app/data/services/app_device_service.dart';
+import 'app/data/style/app_theme.dart';
 import 'app/routes/app_pages.dart';
 import 'core/env_config.dart';
 import 'generated/locales.g.dart';
@@ -21,11 +20,13 @@ import 'generated/l10n.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Get.putAsync(() => AppService().init());
+  await Get.putAsync(() => AppDeviceService().init());
   await Get.putAsync(() => AppMyInfoService().init());
-  final savedThemeMode = await AdaptiveTheme.getThemeMode();
+  final AdaptiveThemeMode? savedThemeMode = await AdaptiveTheme.getThemeMode();
   // TODO:配置环境文件 dev/prod
   await EnvConfig.instance.loadConfig(flavor: "dev");
+  ApiNetRequestManager();
+  ApiClientService();
   // runApp(DevicePreview(
   //   enabled: !kReleaseMode,
   //   builder: (context) => MyApp(savedThemeMode: savedThemeMode),
@@ -58,12 +59,12 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       designSize: const Size(375, 812),
-      builder: (context, child) => AdaptiveTheme(
+      builder: (BuildContext context, Widget? child) => AdaptiveTheme(
           light: ThemeData.light(useMaterial3: true),
           dark: ThemeData.dark(useMaterial3: true),
           initial: widget.savedThemeMode ?? AdaptiveThemeMode.light,
           debugShowFloatingThemeButton: true,
-          builder: (theme, darkTheme) {
+          builder: (ThemeData theme, ThemeData darkTheme) {
             return ProviderScope(
               child: GetMaterialApp(
                 useInheritedMediaQuery: true,
@@ -71,28 +72,32 @@ class _MyAppState extends State<MyApp> {
                 initialRoute: AppPages.INITIAL,
                 getPages: AppPages.routes,
                 debugShowCheckedModeBanner: false,
-                //隐藏右上角Debug标签
-                theme: theme,
-                darkTheme: darkTheme,
+                //
+                // theme: theme,
+                // darkTheme: darkTheme,
+                //
                 // theme: theme22(Brightness.light),
                 // darkTheme: theme22(Brightness.dark),
                 // themeMode: themeMode.watch(context),
+                //
+                theme : AppTheme.light ,
+                darkTheme : AppTheme.dark ,
                 locale: Get.deviceLocale,
                 fallbackLocale: const Locale('en', 'US'),
                 translationsKeys: AppTranslation.translations,
                 // translations: AppTrans(),
-                localizationsDelegates: const [
+                localizationsDelegates: const <LocalizationsDelegate>[
                   GlobalMaterialLocalizations.delegate,
                   GlobalWidgetsLocalizations.delegate,
                   GlobalCupertinoLocalizations.delegate,
                   S.delegate,
                 ],
                 supportedLocales: S.delegate.supportedLocales,
-                navigatorObservers: const [],
-                builder: (context, child) {
+                navigatorObservers: const <NavigatorObserver>[],
+                builder: (BuildContext context, Widget? child) {
                   return SecureApplication(
                     nativeRemoveDelay: 800,
-                    onNeedUnlock: (secureApplicationController) async {
+                    onNeedUnlock: (SecureApplicationController? secureApplicationController) async {
                       return null;
                     },
                     child: Scaffold(
@@ -127,7 +132,7 @@ class _MyAppState extends State<MyApp> {
 
 //关闭键盘
 void appGlobalHideKeyboard({Function? callBack}) {
-  FocusScopeNode currentFocus = FocusScope.of(Get.context!);
+  final FocusScopeNode currentFocus = FocusScope.of(Get.context!);
   if (!currentFocus.hasPrimaryFocus && currentFocus.focusedChild != null) {
     FocusManager.instance.primaryFocus?.unfocus();
     Future.delayed(const Duration(milliseconds: 250), () {

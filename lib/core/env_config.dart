@@ -1,14 +1,14 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class EnvConfig {
-  static final EnvConfig instance = EnvConfig._instance();
-  Map<String, dynamic>? configurations;
 
   factory EnvConfig() {
     return instance;
   }
 
   EnvConfig._instance();
+  static final EnvConfig instance = EnvConfig._instance();
+  Map<String, dynamic>? configurations;
 
   Future<void> loadConfig({required String flavor}) async {
     await dotenv.load(fileName: "lib/core/env/.env.$flavor");

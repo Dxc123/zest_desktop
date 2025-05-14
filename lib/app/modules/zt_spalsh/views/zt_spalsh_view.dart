@@ -12,7 +12,7 @@ class ZtSpalshView extends StatefulWidget {
 }
 
 class _ZtSpalshViewState extends State<ZtSpalshView> {
-  final ztSpalshController = Get.put(ZtSpalshController());
+  final ZtSpalshController ztSpalshController = Get.put(ZtSpalshController());
 
   @override
   void dispose() {

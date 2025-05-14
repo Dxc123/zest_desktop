@@ -2,6 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'color_theme.dart';
 
-final textTheme = TextTheme(
+const TextTheme textTheme = TextTheme(
   displayLarge: TextStyle(color: colorCard),
 );

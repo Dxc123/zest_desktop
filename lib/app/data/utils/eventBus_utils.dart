@@ -31,7 +31,7 @@ class EventBusUtils {
   static final EventBus _eventBus = EventBus();
 
   // 用于管理所有的订阅
-  static final Map<String, StreamSubscription> _subscriptions = {};
+  static final Map<String, StreamSubscription> _subscriptions = <String, StreamSubscription>{};
 
   // 获取 EventBus 实例
   static EventBus get instance => _eventBus;
@@ -42,7 +42,7 @@ class EventBusUtils {
 
   /// 订阅事件
   static StreamSubscription<T> on<T>(void Function(T event) onData) {
-    final subscription = _eventBus.on<T>().listen(onData);
+    final StreamSubscription<T> subscription = _eventBus.on<T>().listen(onData);
     _subscriptions[T.toString()] = subscription;
     return subscription;
   }
@@ -62,8 +62,8 @@ class EventBusUtils {
 
   /// 取消订阅某个事件
   static void off<T>() {
-    final key = T.toString();
-    final subscription = _subscriptions[key];
+    final String key = T.toString();
+    final StreamSubscription? subscription = _subscriptions[key];
     if (subscription != null) {
       subscription.cancel();
       _subscriptions.remove(key);
@@ -72,7 +72,7 @@ class EventBusUtils {
 
   /// 取消所有订阅
   static void offAll() {
-    _subscriptions.forEach((key, subscription) {
+    _subscriptions.forEach((String key, StreamSubscription subscription) {
       subscription.cancel();
     });
     _subscriptions.clear();

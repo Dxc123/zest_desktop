@@ -20,7 +20,7 @@ class ZeMeLanguageView extends GetView<ZeMeLanguageController> {
       ),
       body: Center(
         child: Column(
-          children: [
+          children: <Widget>[
             Text(
               S.current.sign_in_apple,
               style: const TextStyle(fontSize: 20),
@@ -46,7 +46,7 @@ class ZeMeLanguageView extends GetView<ZeMeLanguageController> {
                 ),
               ),
               borderGradient: LinearGradient(
-                colors: [
+                colors: <Color>[
                   Colors.blue,
                   Colors.purple,
                 ],
@@ -60,7 +60,7 @@ class ZeMeLanguageView extends GetView<ZeMeLanguageController> {
             ShaderMask(
               shaderCallback: (Rect bounds) {
                 return const LinearGradient(
-                  colors: [
+                  colors: <Color>[
                     Colors.blue,
                     Colors.purple,
                     Colors.red,

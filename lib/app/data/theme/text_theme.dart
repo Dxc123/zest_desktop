@@ -1,3 +1,3 @@
 import 'dart:ui';
 
-final textTitle = TextStyle(fontSize: 30);
+final TextStyle textTitle = TextStyle(fontSize: 30);

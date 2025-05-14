@@ -1,22 +1,43 @@
 import 'dart:convert';
 
 import 'package:json_annotation/json_annotation.dart';
+
 part 'app_config_entity.g.dart';
+
 // /使用 json_serializable
 // https://dartj.web.app/  json生成对应 model
 /// 有数据模型更新要执行下面语句 =>>
 /// dart run build_runner build --delete-conflicting-outputs
 
 @JsonSerializable()
+class AppBaseEntity {
+  AppBaseEntity();
+
+  factory AppBaseEntity.fromJson(Map<String, dynamic> json) => _$AppBaseEntityFromJson(json);
+
+  int? code;
+  String? message;
+  int? timestamp;
+  dynamic data;
+
+  Map<String, dynamic> toJson() => _$AppBaseEntityToJson(this);
+
+  @override
+  String toString() {
+    return jsonEncode(this);
+  }
+}
+
+@JsonSerializable()
 class AppConfigEntity {
+  AppConfigEntity();
+
+  factory AppConfigEntity.fromJson(Map<String, dynamic> json) => _$AppConfigEntityFromJson(json);
+
   int? code;
   String? message;
   int? timestamp;
   AppConfigEntityData? data;
-
-  AppConfigEntity();
-
-  factory AppConfigEntity.fromJson(Map<String, dynamic> json) => _$AppConfigEntityFromJson(json);
 
   Map<String, dynamic> toJson() => _$AppConfigEntityToJson(this);
 
@@ -38,7 +59,7 @@ class AppConfigEntityData {
   int? sendMsgDiamondsPrice;
   String? appStoreWriteLink;
   @JsonKey(name: "free_message_count")
-  int? freeMessageCount;
+  String? freeMessageCount;
   String? email;
   String? promotionTime;
   String? whatsapp;
@@ -66,6 +87,7 @@ class AppConfigEntityData {
   //位置6：出现第三个弹框，需要循环等待的秒数
   // 位置7 ：主播界面停留多少秒出现aib
   String? pddDialogDisplay;
+
   // 隐藏brl的google支付,逗号分开：BRL,CNY,(需要隐藏巴西谷歌支付时填写)
   String? hideCurrencyCode;
 }
@@ -79,6 +101,7 @@ class AppUpdateEntity {
 
   Map<String, dynamic> toJson() => _$AppUpdateEntityToJson(this);
   bool? isShow;
+
   // 1 google, 2 url
   int? type;
   String? title;
